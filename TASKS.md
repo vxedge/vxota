@@ -19,3 +19,5 @@
 - [ ] Delivery over the vehicle manifest's `ota` slice with campaign semantics
       (batch of zones, staged rollout, rollback signal)
 - [ ] Audit log of deliveries keyed by experiment ID + manifest checksum
+- [ ] UDS/DoIP diagnostic probe: minimal DoIP endpoint in zone guests + diagnostic session
+      exercised during OTA runs (production-realistic update flow)
