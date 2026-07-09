@@ -12,6 +12,7 @@
 - [ ] Signing tooling: sign on publish, verify on client fetch (reject unsigned/mismatched)
 - [ ] Prometheus exporter: deployment success rate, delivery latency histogram
 - [ ] Container image (digest-tagged, non-root) + `kind: container` service descriptor example
+- [ ] CI: build + publish image to GHCR with SHA256 digest recorded (release/artifact pipeline)
 - [ ] Simple OTA client probe (for zone guests) to drive H4 runs
 
 ## Phase 3
