@@ -20,3 +20,8 @@ model), §12 (OTA metrics), hypothesis H4 (OTA co-location vs ADAS SLAs).
   latency (Prometheus exporter, scraped by vxtelemetry).
 - Container-first packaging (`kind: container`), digest-tagged; no root in the container.
 - Rust (§15 policy); MIT/Apache-2.0.
+
+## Project skills
+
+AI/contributor skills in `.claude/skills/`: **testbed-quality** (the OEM-adoption bar —
+reproducibility, fidelity honesty, interface stability, standards legibility).
