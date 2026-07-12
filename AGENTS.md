@@ -7,10 +7,21 @@ model), §12 (OTA metrics), hypothesis H4 (OTA co-location vs ADAS SLAs).
 
 ## What lands here
 
-- OTA server (Rust) — serves signed artifacts to zones/compute over the `ota` slice,
-  transported over WireGuard (§7).
-- Signing tooling: SHA256 digests + signature verification for all delivered artifacts.
-- Artifact store layout + retention conventions.
+Three-crate Rust workspace (delivered 2026-07-12, mirrors vxagents' layout):
+
+- `vxota-common` — content-addressed artifact store (SHA256), Uptane-flavored signed
+  root/targets metadata (§8: vocabulary/format only, no aktualizr dependency), Prometheus
+  helpers.
+- `vxota` — the OTA server (Rust) — `keygen`/`publish`/`serve`. Serves signed artifacts to
+  zones/compute over the `ota` slice, transported over WireGuard (§7) — the server
+  deliberately does not add its own TLS on top of that tunnel.
+- `vxota-probe` — the client probe: fetches + verifies the full trust chain, drives H4
+  experiment runs (one-shot or repeated), exports Prometheus deployment-success/latency
+  metrics the same way vxprobe exports RTT.
+
+See `README.md` for the CLI quick start and `TASKS.md` for what's landed vs. still open
+(container image + GHCR publish, and the `vxedge`-side `ota up --experiment` wiring are the
+two known gaps).
 
 ## Rules
 

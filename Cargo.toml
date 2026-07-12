@@ -1,0 +1,38 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/vxota-common",
+    "crates/vxota",
+    "crates/vxota-probe",
+]
+
+[workspace.package]
+publish = false
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.96"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/vxedge/vxota"
+
+[workspace.dependencies]
+vxota-common = { path = "crates/vxota-common" }
+
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "time", "fs", "io-util", "signal"] }
+axum = "0.8"
+tower-http = { version = "0.6", features = ["fs"] }
+reqwest = { version = "0.12", default-features = false, features = ["stream", "rustls-tls"] }
+clap = { version = "4", features = ["derive", "env"] }
+ed25519-dalek = { version = "2", features = ["rand_core", "serde"] }
+rand = "0.8"
+sha2 = "0.10"
+hex = "0.4"
+hdrhistogram = "7"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
