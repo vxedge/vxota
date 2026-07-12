@@ -96,6 +96,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     for i in 0..repeat.max(1) {
         if i > 0 {
             tokio::time::sleep(Duration::from_secs(interval_s)).await;
+            // Each repeat iteration is meant to be an independent delivery
+            // (H4 driver mode: simulate a device checking for/downloading an
+            // update repeatedly over an experiment window) — without this,
+            // download_resumable's "already complete" short-circuit would
+            // make every iteration after the first a no-op digest check
+            // instead of a real transfer, silently understating the OTA
+            // workload's actual network/CPU footprint.
+            let _ = std::fs::remove_file(&cfg.out);
         }
         match fetch::fetch_and_verify(&client, &cfg).await {
             Ok(outcome) => {

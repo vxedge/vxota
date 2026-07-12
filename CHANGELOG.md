@@ -33,9 +33,12 @@ All notable changes to this repo are documented here. Format follows
 - A missing `flush()` before the immediately-following digest check could read back a
   file tokio hadn't finished making visible on disk — found by the loopback e2e test
   failing with a "digest mismatch against SHA256 of empty bytes" on first run.
+- `vxota-probe fetch --repeat N` reused the same `--out` path across iterations, so
+  `download_resumable`'s "already complete" short-circuit made every iteration after the
+  first a near-instant no-op digest check instead of a real transfer — H4 driver mode was
+  silently measuring almost none of the OTA workload's actual footprint. Now clears the
+  output path before each iteration after the first, verified by timing (2026-07-12).
 
 ### Known gaps
 - Container image (digest-tagged, non-root) + `kind: container` service descriptor
   example; CI publish to GHCR.
-- `vxedge`-side wiring so `vxedge ota up --experiment <manifest>` spawns/manages this
-  server from the manifest's `services.ota` block.
