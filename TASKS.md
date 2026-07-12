@@ -1,6 +1,9 @@
 # TASKS.md — vxedge/vxota
 
-## Phase 1 (not on the critical path; H4 needs it by end of phase 2)
+**H4 delivered 2026-07-13** (exp-003, vxperiments): H4 HOLDS — see docs/STATUS.md and
+vxperiments/TASKS.md for the campaign result. This closed the phase-1 gate.
+
+## Phase 1 (not on the critical path; H4 needed it by end of phase 2)
 
 - [x] Crate scaffold + CI (2026-07-12): 3-crate workspace (`vxota-common`, `vxota`,
       `vxota-probe`) mirroring vxagents' conventions — workspace `Cargo.toml`, `deny.toml`,
@@ -15,11 +18,11 @@
 - [x] OTA server v1 (2026-07-12): `vxota serve` (axum + `tower_http::ServeDir`) serves
       `root.json`/`targets.json`/`artifacts/<sha256>` directly off the store's directory
       layout — Range/If-Range (resumable downloads) handled by `ServeDir`, verified against
-      a real curl request. Config today is a CLI flag (`--artifacts-dir`, `--listen`)
-      matching the manifest's `config.artifacts` field 1:1; **still open**: wiring
-      `vxedge ota up --experiment <manifest>` in `vxedge`/`vxedged` to actually spawn/manage
-      this process from the experiment manifest's `services.ota` block — that's a
-      `vxedge`-repo task, not started here.
+      a real curl request. Config is a CLI flag (`--artifacts-dir`, `--listen`) matching
+      the manifest's `config.artifacts`/`config.listen` fields 1:1. `vxedge ota up
+      --experiment <manifest>` (in `vxedge`/`vxedged`) spawns/manages this process from
+      the experiment manifest's `services.ota` block — delivered 2026-07-12, smoke-tested
+      live, used successfully by exp-003 (2026-07-13).
 - [x] Signing tooling (2026-07-12): Uptane-flavored signed root/targets metadata
       (`vxota-common::metadata` — vocabulary/format only, no aktualizr dependency, per §8).
       `vxota keygen` generates the root key + self-signed `root.json`; `vxota publish`
@@ -42,7 +45,12 @@
       serves live Prometheus during the run; prints a JSON summary to stdout and exits 1 if
       every attempt failed (mirrors vxprobe's exit-1-on-zero-received convention). Resumable
       download: appends via `Range` only when the server actually answers 206 (verified in
-      tests), otherwise restarts clean rather than risking silent corruption.
+      tests), otherwise restarts clean rather than risking silent corruption. Caught and
+      fixed a real bug before exp-003 ran: `--repeat` reused the same `--out` path, so the
+      resumability short-circuit made every iteration after the first a near-instant no-op
+      instead of a real transfer — fixed by clearing the output path each iteration
+      (2026-07-12). Used successfully in exp-003 (2026-07-13): ~355 real deliveries/rep,
+      zero failures, ~206ms median latency for a 5MB artifact.
 
 **Known v1 simplifications (documented, not oversights):** single ed25519 key covers both
 the root and targets roles (real Uptane splits root/targets/snapshot/timestamp across
