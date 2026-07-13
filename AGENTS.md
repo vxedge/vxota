@@ -34,5 +34,6 @@ two known gaps).
 
 ## Project skills
 
-AI/contributor skills in `.claude/skills/`: **testbed-quality** (the OEM-adoption bar —
-reproducibility, fidelity honesty, interface stability, standards legibility).
+AI/contributor skills in `.claude/skills/`: **rust-patterns** (house Rust rules, per the
+Microsoft Rust Patterns book) and **testbed-quality** (the OEM-adoption bar — reproducibility,
+fidelity honesty, interface stability, standards legibility). Apply both to every change.
