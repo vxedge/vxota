@@ -1,0 +1,24 @@
+# Dev/test-only build — compiles vxota from source in one step, for local iteration.
+#
+# NOT the published path: the real, published artifact is
+# vxparts/parts/svc/ota/app/vxota/ (see that part's own README for why — this repo is
+# private, so a Containerfile living in vxparts can't `git clone` it at build time without
+# baking a credential into the build; the published recipe instead packages a binary built
+# outside and staged in). This one has no such problem: its own build context *is* this
+# repo, so it can compile from source directly. Never pushed to any registry — build and
+# run it locally only.
+#
+# Usage:
+#   podman build -f Containerfile.dev -t vxota:dev .
+#   podman run --rm -v /tmp/vxota-dev-store:/data:Z vxota:dev serve --artifacts-dir /data --listen 0.0.0.0:9900
+
+FROM docker.io/library/rust:1.96.1-bookworm@sha256:a339861ae23e9abb272cea45dfafde21760d2ce6577a70f8a926153677902663 AS builder
+WORKDIR /src
+COPY . .
+RUN cargo build --release -p vxota
+
+FROM docker.io/library/debian:bookworm-slim@sha256:63a496b5d3b99214b39f5ed70eb71a61e590a77979c79cbee4faf991f8c0783e
+RUN groupadd -r vxota && useradd -r -g vxota -s /usr/sbin/nologin -d /nonexistent vxota
+COPY --from=builder /src/target/release/vxota /usr/local/bin/vxota
+USER vxota
+ENTRYPOINT ["/usr/local/bin/vxota"]
