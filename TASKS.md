@@ -36,10 +36,28 @@ vxperiments/TASKS.md for the campaign result. This closed the phase-1 gate.
       `ProbeState`) — `vxota_deployments_total{status=success|failure}`,
       `vxota_delivery_latency_seconds{quantile=...}`. The server side also exposes
       `/metrics` with a basic request counter.
-- [ ] Container image (digest-tagged, non-root) + `kind: container` service descriptor
-      example — not started.
-- [ ] CI: build + publish image to GHCR with SHA256 digest recorded (release/artifact
-      pipeline) — not started; depends on the container image above.
+- [x] Container image (digest-tagged, non-root) — **delivered 2026-08-04**
+      (`vxparts/parts/svc/ota/app/vxota/`, VXPN `VXE92-SOTA-ATPS`, full account in
+      `vxparts/TASKS.md`). Published from `vxparts`, not this repo — this repo owns the
+      source, `vxparts` owns every loadable artifact the platform boots, same split as
+      every other part (`docs/ARCHITECTURE.md` §4, fixed the same day: it never actually
+      named `vxparts` as the registry before this). Packaging-only Containerfile (private
+      repo, can't `git clone` at build time); binary built here and staged into the part.
+      This repo also gained `Containerfile.dev` — compiles from source in one step, for
+      local iteration; never published, not the same recipe. Both live-verified: real
+      `keygen` run inside each built image, confirmed non-root. **Still separate, still
+      open**: the daemon doesn't actually consume this image yet — `vxedge-core::services
+      ::OtaBackend` still spawns the bare `vxota` binary as a subprocess
+      (`--vxota-bin`/`SpawnSpec`), not a container. A `kind: container` service-descriptor
+      path (manifest schema + `vxedged` wiring to actually run the published image) is
+      unstarted engineering, not implied done by publishing the artifact.
+- [ ] CI: automated *publish* to GHCR with SHA256 digest recorded — **partially covered**:
+      `vxparts`' own `build-containers` CI job (delivered 2026-08-04, `docs/TASKS.md` #18)
+      already build-verifies this part automatically on every push that touches it, since
+      it now has a `Containerfile` — but that job deliberately never pushes
+      (`vxparts/.github/workflows/parts.yml`'s own stated policy: publishing stays a
+      manual `workflow_dispatch` act). Actually publishing this specific part to GHCR is
+      still a manual, one-time step someone runs.
 - [x] Simple OTA client probe to drive H4 runs (2026-07-12): `vxota-probe fetch` — one-shot
       or `--repeat N --interval-s S` for a sustained H4 experiment window; `--metrics <addr>`
       serves live Prometheus during the run; prints a JSON summary to stdout and exits 1 if
