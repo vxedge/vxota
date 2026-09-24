@@ -1,11 +1,12 @@
 # vxota
 
-Part of the **vxedge** research platform.
+OTA server with Uptane-flavored signing and a content-addressed artifact store, written in Rust. It is the measurable OTA workload behind vxedge's H4 co-location experiment. It is not a production OTA stack.
 
-**Purpose:** OTA server, signing, and artifact store — the H4 (OTA co-location) service.
-See [vxedge/docs](https://github.com/vxedge/docs) for the research plan and
-`ARCHITECTURE.md` §8 for the design (Uptane-flavored metadata, why aktualizr/hawkBit/Mender
-aren't dependencies).
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![CI](https://github.com/vxedge/vxota/actions/workflows/ci.yml/badge.svg)](https://github.com/vxedge/vxota/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/tag/vxedge/vxota?label=release)](https://github.com/vxedge/vxota/tags)
+
+vxedge is an open, all-software testbed for mapping 5G network slices onto zonal and central software-defined-vehicle (SDV) E/E architectures on a single machine. Every published number ships with the manifest and image digests that produced it.
 
 ## Crates
 
@@ -45,3 +46,11 @@ cargo build --workspace
 `cargo test --workspace` runs the full trust-chain end-to-end over loopback (keygen →
 publish → serve → fetch/verify), including rejection of a wrong trust-root key and an
 unpublished target — see `crates/vxota-probe/tests/loopback.rs`.
+
+## Links
+
+- Site: <https://vxedge.dev>
+- Architecture: [`docs/ARCHITECTURE.md`](https://github.com/vxedge/docs/blob/main/ARCHITECTURE.md)
+- Results: [`docs/RESULTS.md`](https://github.com/vxedge/docs/blob/main/RESULTS.md) · Roadmap: [`docs/ROADMAP.md`](https://github.com/vxedge/docs/blob/main/ROADMAP.md)
+- Contributing: [CONTRIBUTING](https://github.com/vxedge/.github/blob/main/CONTRIBUTING.md) · Security: [SECURITY](https://github.com/vxedge/.github/blob/main/SECURITY.md)
+- License: Apache-2.0 ([`LICENSE`](LICENSE))

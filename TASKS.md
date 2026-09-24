@@ -1,6 +1,6 @@
 # TASKS.md — vxedge/vxota
 
-**H4 delivered 2026-07-13** (exp-003, vxperiments): H4 HOLDS — see docs/STATUS.md and
+**H4 delivered 2026-07-13** (exp-003, vxperiments): H4 HOLDS — see docs/RESULTS.md and
 vxperiments/TASKS.md for the campaign result. This closed the phase-1 gate.
 
 ## Phase 1 (not on the critical path; H4 needed it by end of phase 2)
@@ -52,7 +52,7 @@ vxperiments/TASKS.md for the campaign result. This closed the phase-1 gate.
       path (manifest schema + `vxedged` wiring to actually run the published image) is
       unstarted engineering, not implied done by publishing the artifact.
 - [ ] CI: automated *publish* to GHCR with SHA256 digest recorded — **partially covered**:
-      `vxparts`' own `build-containers` CI job (delivered 2026-08-04, `docs/TASKS.md` #18)
+      `vxparts`' own `build-containers` CI job (delivered 2026-08-04, `docs/ROADMAP.md` #18)
       already build-verifies this part automatically on every push that touches it, since
       it now has a `Containerfile` — but that job deliberately never pushes
       (`vxparts/.github/workflows/parts.yml`'s own stated policy: publishing stays a
