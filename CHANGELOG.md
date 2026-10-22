@@ -6,9 +6,16 @@ All notable changes to this repo are documented here. Format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-22
+
 ### Added
 
+- Tag-triggered release workflow (`.github/workflows/release.yml`): builds `vxota` and `vxota-probe` for `x86_64-unknown-linux-gnu` and `aarch64-unknown-linux-gnu` (native Ubuntu 24.04 runners, `--locked`), publishes `vxota-<version>-<target>.tar.gz` archives with a `SHA256SUMS`, and attaches build provenance (`gh attestation verify`). `workflow_dispatch` is a dry run that creates no release.
 - Open-source release preparation: `LICENSE` (Apache-2.0), `NOTICE`, rewritten `README.md`. Crate `license` metadata is now `Apache-2.0` (was `MIT OR Apache-2.0`).
+
+### Security
+
+- Lockfile update `rustls` 0.23.41 -> 0.23.46, `rustls-webpki` 0.103.13 -> 0.103.16, `webpki-roots` 1.0.8 -> 1.0.10, which fixes RUSTSEC-2026-0285, -0346, -0348, -0349 and -0381 in `vxota-probe`'s TLS stack.
 
 ## [0.1.0] - 2026-07-13
 
