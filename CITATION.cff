@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "vxota: an OTA server with Uptane-flavored signing, the measurable OTA workload of the vxedge testbed"
+type: software
+authors:
+  - family-names: "Djaafri"
+    given-names: "Fouzi"
+    affiliation: "Independent Researcher"
+repository-code: "https://github.com/vxedge/vxota"
+url: "https://vxedge.dev"
+version: "0.1.1"
+date-released: "2026-10-22"
+license: Apache-2.0
+keywords:
+  - ota
+  - over-the-air-updates
+  - uptane
+  - software-defined-vehicle
+  - automotive
+  - testbed
+  - reproducible-research
+abstract: >-
+  vxota is an OTA server with Uptane-flavored signing and a content-addressed artifact store, written
+  in Rust. It is the measurable OTA workload behind the H4 co-location experiment of vxedge. It is not
+  a production OTA stack.
+references:
+  - type: software
+    title: "vxedge: specification and results of an all-software SDV network-slicing testbed"
+    authors:
+      - family-names: "Djaafri"
+        given-names: "Fouzi"
+    url: "https://github.com/vxedge/docs"
