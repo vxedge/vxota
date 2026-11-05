@@ -9,6 +9,7 @@ All notable changes to this repo are documented here. Format follows
 ### Changed
 
 - `sha2` 0.10 -> 0.11, a version-requirement bump only. Digests are unchanged. `ed25519-dalek` 2 still uses `sha2` 0.10 internally, so both versions are in the tree until it moves.
+- `tower-http` 0.6 -> 0.7, used for `ServeDir` in `vxota serve`. No source change was needed. `tower-http` 0.6 stays in the tree through another dependency.
 - Lockfile update: the semver-compatible dependency updates `cargo update` offers (98 crates). No `Cargo.toml` change and no source change; build, test, clippy `-D warnings`, fmt and `cargo deny` pass.
 - The toolchain moves from Rust 1.96.1 to 1.99.1 (`rust-toolchain.toml`, `rust-version` 1.99). Build, test, clippy `-D warnings`, fmt and `cargo deny` pass unchanged; no source changes were needed. `Containerfile.dev` builds on `rust:1.99.1-bookworm`, pinned by digest.
 
