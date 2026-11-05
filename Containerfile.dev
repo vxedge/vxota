@@ -12,7 +12,7 @@
 #   podman build -f Containerfile.dev -t vxota:dev .
 #   podman run --rm -v /tmp/vxota-dev-store:/data:Z vxota:dev serve --artifacts-dir /data --listen 0.0.0.0:9900
 
-FROM docker.io/library/rust:1.96.1-bookworm@sha256:a339861ae23e9abb272cea45dfafde21760d2ce6577a70f8a926153677902663 AS builder
+FROM docker.io/library/rust:1.99.1-bookworm@sha256:7085845219c18e7c5b1f34ed9ce89b84f822f2e3d54a02774cedc996ac0f304f AS builder
 WORKDIR /src
 COPY . .
 RUN cargo build --release -p vxota
