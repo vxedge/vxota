@@ -6,6 +6,10 @@ All notable changes to this repo are documented here. Format follows
 
 ## [Unreleased]
 
+### Changed
+
+- The toolchain moves from Rust 1.96.1 to 1.99.1 (`rust-toolchain.toml`, `rust-version` 1.99). Build, test, clippy `-D warnings`, fmt and `cargo deny` pass unchanged; no source changes were needed. `Containerfile.dev` builds on `rust:1.99.1-bookworm`, pinned by digest.
+
 ### Security
 
 - Lockfile update `tokio` 1.52.3 -> 1.54.1, which fixes RUSTSEC-2026-0386 (unsound `AsyncFd` constructors). vxota does not call `AsyncFd` directly.
