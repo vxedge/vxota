@@ -20,7 +20,9 @@ vxota-common = { path = "crates/vxota-common" }
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "time", "fs", "io-util", "signal"] }
 axum = "0.8"
 tower-http = { version = "0.7", features = ["fs"] }
-reqwest = { version = "0.12", default-features = false, features = ["stream", "rustls-tls"] }
+reqwest = { version = "0.13", default-features = false, features = ["stream", "rustls-no-provider"] }
+# reqwest 0.13 leaves the TLS crypto provider to the program; vxota keeps rustls' `ring` provider.
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12"] }
 clap = { version = "4", features = ["derive", "env"] }
 ed25519-dalek = { version = "3", features = ["rand_core", "serde"] }
 rand = "0.10"
