@@ -150,11 +150,12 @@ pub fn verify<T: Serialize>(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use rand::rngs::OsRng;
+    use rand::rand_core::UnwrapErr;
+    use rand::rngs::SysRng;
 
     #[test]
     fn sign_then_verify_roundtrips() {
-        let sk = SigningKey::generate(&mut OsRng);
+        let sk = SigningKey::generate(&mut UnwrapErr(SysRng));
         let targets = TargetsMetadata {
             version: 1,
             expires_unix: now_unix() + 3600,
@@ -166,8 +167,8 @@ mod tests {
 
     #[test]
     fn verify_rejects_wrong_key() {
-        let sk = SigningKey::generate(&mut OsRng);
-        let other = SigningKey::generate(&mut OsRng);
+        let sk = SigningKey::generate(&mut UnwrapErr(SysRng));
+        let other = SigningKey::generate(&mut UnwrapErr(SysRng));
         let targets = TargetsMetadata {
             version: 1,
             expires_unix: now_unix() + 3600,
@@ -180,7 +181,7 @@ mod tests {
 
     #[test]
     fn verify_rejects_expired() {
-        let sk = SigningKey::generate(&mut OsRng);
+        let sk = SigningKey::generate(&mut UnwrapErr(SysRng));
         let targets = TargetsMetadata {
             version: 1,
             expires_unix: now_unix().saturating_sub(1),
@@ -193,7 +194,7 @@ mod tests {
 
     #[test]
     fn verify_rejects_tampered_payload() {
-        let sk = SigningKey::generate(&mut OsRng);
+        let sk = SigningKey::generate(&mut UnwrapErr(SysRng));
         let targets = TargetsMetadata {
             version: 1,
             expires_unix: now_unix() + 3600,
