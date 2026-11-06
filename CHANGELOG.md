@@ -8,6 +8,7 @@ All notable changes to this repo are documented here. Format follows
 
 ### Changed
 
+- `ed25519-dalek` 2 -> 3 and `rand` 0.8 -> 0.10. Keys still come from the OS RNG: `vxota keygen` uses `rand::rngs::SysRng` (getrandom 0.4) where it used `OsRng`, and still stops if the OS RNG fails. Key, `root.json` and `targets.json` formats are unchanged: metadata signed by the previous build verifies with this one and the other way round, and a wrong trust root is still refused. The tree drops `rand` 0.8, `sha2` 0.10 and the older RustCrypto crates.
 - CI uses `actions/checkout@v7`, the major this repo's other workflows already run, instead of v4.
 - `sha2` 0.10 -> 0.11, a version-requirement bump only. Digests are unchanged. `ed25519-dalek` 2 still uses `sha2` 0.10 internally, so both versions are in the tree until it moves.
 - `tower-http` 0.6 -> 0.7, used for `ServeDir` in `vxota serve`. No source change was needed. `tower-http` 0.6 stays in the tree through another dependency.

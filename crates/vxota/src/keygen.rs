@@ -1,6 +1,7 @@
 use clap::Args;
 use ed25519_dalek::SigningKey;
-use rand::rngs::OsRng;
+use rand::rand_core::UnwrapErr;
+use rand::rngs::SysRng;
 use std::collections::BTreeMap;
 use std::path::PathBuf;
 use vxota_common::metadata::{self, Role};
@@ -22,7 +23,7 @@ pub struct KeygenArgs {
 
 pub fn run(args: KeygenArgs) -> Result<(), Box<dyn std::error::Error>> {
     std::fs::create_dir_all(&args.artifacts_dir)?;
-    let sk = SigningKey::generate(&mut OsRng);
+    let sk = SigningKey::generate(&mut UnwrapErr(SysRng));
     std::fs::write(&args.out_priv, hex::encode(sk.to_bytes()))?;
     #[cfg(unix)]
     {
