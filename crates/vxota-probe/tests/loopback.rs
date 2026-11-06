@@ -66,7 +66,7 @@ async fn probe_fetches_and_verifies_over_loopback() {
     };
 
     let out_path = tmp.path().join("downloaded.bin");
-    let client = reqwest::Client::new();
+    let client = vxota_probe::http_client();
     let cfg = FetchConfig {
         server: format!("http://{addr}"),
         target: "zone-fw".to_string(),
@@ -96,7 +96,7 @@ async fn probe_rejects_wrong_trust_root() {
     let wrong_sk = ed25519_dalek::SigningKey::from_bytes(&[7u8; 32]);
     let wrong_root_hex = hex::encode(wrong_sk.verifying_key().as_bytes());
 
-    let client = reqwest::Client::new();
+    let client = vxota_probe::http_client();
     let cfg = FetchConfig {
         server: format!("http://{addr}"),
         target: "zone-fw".to_string(),
@@ -117,7 +117,7 @@ async fn probe_rejects_wrong_trust_root() {
 #[tokio::test(flavor = "multi_thread")]
 async fn probe_rejects_unknown_target() {
     let (tmp, addr, trust_root_hex) = publish_and_serve().await;
-    let client = reqwest::Client::new();
+    let client = vxota_probe::http_client();
     let cfg = FetchConfig {
         server: format!("http://{addr}"),
         target: "does-not-exist".to_string(),

@@ -20,6 +20,7 @@ path = "src/main.rs"
 vxota-common = { workspace = true }
 tokio = { workspace = true }
 reqwest = { workspace = true }
+rustls = { workspace = true }
 futures-util = { version = "0.3", default-features = false, features = ["std"] }
 clap = { workspace = true }
 hdrhistogram = { workspace = true }
