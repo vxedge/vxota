@@ -1,6 +1,5 @@
 //! Content-addressed artifact store: published bytes are written to
-//! `<root>/artifacts/<sha256>`, addressed by their own digest (vxota/TASKS.md
-//! phase 1). Writes are atomic (write to a per-process tmp file, then
+//! `<root>/artifacts/<sha256>`, addressed by their own digest. Writes are atomic (write to a per-process tmp file, then
 //! rename) so a server reading concurrently never sees a partial artifact.
 
 use sha2::{Digest, Sha256};
@@ -52,8 +51,8 @@ impl ArtifactStore {
 }
 
 /// SHA256 of a file's full contents, hex-encoded. v1 reads the whole file
-/// into memory — fine at this testbed's artifact sizes; streaming hashing
-/// is a follow-up if multi-GB images are ever exercised.
+/// into memory and does not stream, which is fine at this testbed's artifact
+/// sizes.
 pub fn sha256_file(path: &Path) -> Result<String, StoreError> {
     let bytes = std::fs::read(path)?;
     Ok(hex::encode(Sha256::digest(&bytes)))
