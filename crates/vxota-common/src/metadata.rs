@@ -2,7 +2,7 @@
 //! on aktualizr or full TUF (docs/ARCHITECTURE.md §8). v1 models the
 //! image-repo half of Uptane — signed root + targets metadata with
 //! out-of-band root-key trust bootstrap; director-repo / campaign semantics
-//! are phase-3 scope (vxota/TASKS.md).
+//! are not implemented.
 //!
 //! Trust chain: the client pins the root public key out-of-band (how a
 //! device is provisioned in real Uptane), verifies `root.json` against it,

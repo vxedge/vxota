@@ -5,7 +5,7 @@ descriptor (image + config) for a given experiment lives in that experiment's ma
 `vxperiments` — the code lives here. Master spec: `../docs/ARCHITECTURE.md` §8 (service
 model), §12 (OTA metrics), hypothesis H4 (OTA co-location vs ADAS SLAs).
 
-## What lands here
+## What is here
 
 Three-crate Rust workspace (delivered 2026-07-12, mirrors vxagents' layout):
 
@@ -19,9 +19,8 @@ Three-crate Rust workspace (delivered 2026-07-12, mirrors vxagents' layout):
   experiment runs (one-shot or repeated), exports Prometheus deployment-success/latency
   metrics the same way vxprobe exports RTT.
 
-See `README.md` for the CLI quick start and `TASKS.md` for what's landed vs. still open
-(container image + GHCR publish, and the `vxedge`-side `ota up --experiment` wiring are the
-two known gaps).
+See `README.md` for the CLI quick start. Work items are tracked on the maintainers' internal
+board; the public record of changes is `CHANGELOG.md`.
 
 ## Rules
 
