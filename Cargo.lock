@@ -1812,7 +1812,7 @@ checksum = "ba73ea9cf16a25df0c8caa16c51acb937d5712a8429db78a3ee29d5dcacd3a65"
 
 [[package]]
 name = "vxota"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "axum",
  "clap",
@@ -1833,7 +1833,7 @@ dependencies = [
 
 [[package]]
 name = "vxota-common"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "ed25519-dalek",
  "hex",
@@ -1849,7 +1849,7 @@ dependencies = [
 
 [[package]]
 name = "vxota-probe"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "clap",
  "ed25519-dalek",
