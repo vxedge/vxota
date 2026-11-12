@@ -6,6 +6,12 @@ All notable changes to this repo are documented here. Format follows
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-12
+
+`--version` names the build profile, so vxedged can record whether a result came from a debug or a
+release build. Dependency and toolchain updates, including the `tokio` fix for RUSTSEC-2026-0386.
+Key and metadata formats are unchanged.
+
 ### Added
 
 - `--version` ends in the build profile, `(debug)` or `(release)`, as in
