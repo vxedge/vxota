@@ -6,6 +6,12 @@ All notable changes to this repo are documented here. Format follows
 
 ## [Unreleased]
 
+### Added
+
+- `--version` ends in the build profile, `(debug)` or `(release)`, as in
+  `vxota 0.1.1 (release)`. vxedged records it with a run's results (vxedge X9.14), since a debug
+  build changes what an OTA run measures. `debug` means a build with debug assertions on.
+
 ### Changed
 
 - `ed25519-dalek` 2 -> 3 and `rand` 0.8 -> 0.10. Keys still come from the OS RNG: `vxota keygen` uses `rand::rngs::SysRng` (getrandom 0.4) where it used `OsRng`, and still stops if the OS RNG fails. Key, `root.json` and `targets.json` formats are unchanged: metadata signed by the previous build verifies with this one and the other way round, and a wrong trust root is still refused. The tree drops `rand` 0.8, `sha2` 0.10 and the older RustCrypto crates.
