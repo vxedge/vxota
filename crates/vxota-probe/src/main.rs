@@ -15,10 +15,18 @@ use std::time::Duration;
 use vxota_probe::fetch::{self, FetchConfig};
 use vxota_probe::state::OtaState;
 
+/// `--version`: the version, then the build profile, which vxedged records with a run's results.
+/// `debug` is a build with debug assertions on.
+const VERSION: &str = if cfg!(debug_assertions) {
+    concat!(env!("CARGO_PKG_VERSION"), " (debug)")
+} else {
+    concat!(env!("CARGO_PKG_VERSION"), " (release)")
+};
+
 #[derive(Parser)]
 #[command(
     name = "vxota-probe",
-    version,
+    version = VERSION,
     about = "vxedge OTA client probe (fetch + verify signed artifacts)"
 )]
 struct Cli {
