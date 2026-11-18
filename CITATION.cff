@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "vxota: an OTA server with Uptane-flavored signing, the measurable OTA workload of the vxedge testbed"
+title: "vxota: an OTA server with Uptane-flavored signing, the measurable OTA workload of vxedge"
 type: software
 authors:
   - family-names: "Djaafri"
@@ -26,7 +26,7 @@ abstract: >-
   a production OTA stack.
 references:
   - type: software
-    title: "vxedge: specification and results of an all-software SDV network-slicing testbed"
+    title: "vxedge: specification and results of a virtual vehicle with environmental parity"
     authors:
       - family-names: "Djaafri"
         given-names: "Fouzi"
